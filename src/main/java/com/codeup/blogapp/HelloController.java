@@ -17,7 +17,7 @@ public class HelloController {
     @GetMapping("/person")
     @ResponseBody
     public Person getPerson() {
-        return new Person("Josh", "Bum");
+        return new Person("Sam", "Student");
     }
 
     @GetMapping("/hello/{name}")
