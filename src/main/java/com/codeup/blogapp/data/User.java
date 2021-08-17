@@ -1,34 +1,28 @@
 package com.codeup.blogapp.data;
 
-import java.util.Date;
-
 public class User {
 
-    public enum Role {USER, ADMIN};
-    private long id;
+    private Long id;
     private String username;
     private String email;
     private String password;
+    private Role role = Role.USER;
 
-    public User(long id, String username, String email, String password) {
+    public enum Role {USER, ADMIN};
+
+    public User(Long id, String username, String email, String password, Role role) {
         this.id = id;
         this.username = username;
         this.email = email;
         this.password = password;
+        this.role = role;
     }
 
-    public User(String username) {
-        this.username = username;
-    }
-
-    public User() {
-    }
-
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -54,5 +48,13 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 }

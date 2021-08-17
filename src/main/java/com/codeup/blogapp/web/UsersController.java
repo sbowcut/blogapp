@@ -5,41 +5,51 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @RestController
 @RequestMapping(value = "/api/users", headers = "Accept=application/json")
 public class UsersController {
 
-    private ArrayList<User> users;
-
-    UsersController() {
-
-        users = new ArrayList<User>() {{
-            add(new User("JoBo"));
-            add(new User("Danika"));
-            add(new User("Tonga"));
+    @GetMapping
+    private List<User> getUsers(){
+        return new ArrayList<User>(){{
+            add(new User(1L, "billy.bob", "billybob@email.com", "mericagreatagain", User.Role.USER));
+            add(new User(2L, "Deborah.Joe", "biznizbitch@email.com", "password1234", User.Role.USER));
+            add(new User(3L, "John.Smith", "jsmith@email.com", "happydays4432", User.Role.USER));
         }};
-
     }
 
-    @GetMapping
-    private List<User> getUsers() { return users; }
+    @GetMapping("{id}")
+    private User getUserById(@PathVariable Long id){
+        // api/posts/1
+        if(id == 1){
+            return new User(1L, "billy.bob", "billybob@email.com", "mericagreatagain", User.Role.USER);
+        }else{
+            return null;
+        }
+    }
 
     @PostMapping
-    private void createUser(@RequestBody User user) {
-        System.out.println(user);
+    private void createUser(@RequestBody User user){
+
+        System.out.println(user.getId());
+        System.out.println(user.getUsername());
+        System.out.println(user.getEmail());
+
     }
 
-    @PutMapping("/{id}")
-    private void updateUser(@PathVariable Long id, @RequestBody User user) {
-        System.out.println(user);
+    @PutMapping({"/{id}"})
+    private void updateUser(@PathVariable Long id, @RequestBody User user){
+
+        System.out.println(user.getId());
+        System.out.println(user.getUsername());
+        System.out.println(user.getEmail());
     }
 
-    @DeleteMapping("/{id}")
-    private void deleteUser(@PathVariable Long id) {
-        users.removeIf(userItem -> Objects.equals(userItem.getId(), id));
-        System.out.printf("User %s was deleted.", id);
+    @DeleteMapping({"{id}"})
+    private void deleteUser(@PathVariable Long id){
+        System.out.println("The id deleted was: " + id);
     }
+
 
 }
