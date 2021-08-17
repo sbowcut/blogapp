@@ -13,9 +13,9 @@ public class UsersController {
     @GetMapping
     private List<User> getUsers(){
         return new ArrayList<User>(){{
-            add(new User(1L, "billy.bob", "billybob@email.com", "mericagreatagain", User.Role.USER));
-            add(new User(2L, "Deborah.Joe", "biznizbitch@email.com", "password1234", User.Role.USER));
-            add(new User(3L, "John.Smith", "jsmith@email.com", "happydays4432", User.Role.USER));
+            add(new User(1L, "billy.bob", "billybob@email.com", "mericagreatagain", null, null));
+            add(new User(2L, "Deborah.Joe", "biznizbitch@email.com", "password1234", null, null));
+            add(new User(3L, "John.Smith", "jsmith@email.com", "happydays4432", null, null));
         }};
     }
 
@@ -23,7 +23,7 @@ public class UsersController {
     private User getUserById(@PathVariable Long id){
         // api/posts/1
         if(id == 1){
-            return new User(1L, "billy.bob", "billybob@email.com", "mericagreatagain", User.Role.USER);
+            return new User(1L, "billy.bob", "billybob@email.com", "mericagreatagain", null, null);
         }else{
             return null;
         }
