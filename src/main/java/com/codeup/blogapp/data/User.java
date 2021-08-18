@@ -22,6 +22,10 @@ public class User {
         this.posts = posts;
     }
 
+    public User(String username){
+        this.username = username;
+    }
+
     public Long getId() {
         return id;
     }
