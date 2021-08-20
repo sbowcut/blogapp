@@ -16,6 +16,7 @@ public class Category {
     @Column(nullable = false)
     private String name;
 
+    @ManyToMany(mappedBy = "categories")
     private Collection<Post> post;
 
     public Category(){
