@@ -1,13 +1,24 @@
 package com.codeup.blogapp.data;
 
+import javax.persistence.*;
 import java.util.Collection;
 
+@Entity
+@Table(name = "posts")
 public class Post {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(nullable = false, length = 100)
     private String title;
+
+    @Column(nullable = false)
     private String content;
+
     private User user;
+
     private Collection<Category> categories;
 
     public Post(Long id, String title, String content, User user) {
@@ -15,6 +26,7 @@ public class Post {
         this.title = title;
         this.content = content;
         this.user = user;
+        this.categories = categories;
     }
 
     public Post(){}
@@ -43,5 +55,19 @@ public class Post {
         this.content = content;
     }
 
-    public void setCategories(){}
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Collection<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(Collection<Category> categories) {
+        this.categories = categories;
+    }
 }
