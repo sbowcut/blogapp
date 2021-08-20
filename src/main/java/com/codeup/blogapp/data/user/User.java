@@ -1,5 +1,5 @@
 package com.codeup.blogapp.data.user;
-
+import com.codeup.blogapp.data.category.Category;
 import com.codeup.blogapp.data.post.Post;
 
 import javax.persistence.*;
@@ -23,6 +23,7 @@ public class User {
     private String password;
 
     private Role role = Role.USER;
+
     private Collection<Post> posts;
 
     public enum Role {USER, ADMIN};
