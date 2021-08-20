@@ -9,11 +9,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(value = "/api/categories", headers = "Accept=application/json")
+@RequestMapping(value = "/api/categories", headers = "application/json")
 public class CategoriesController {
 
     @GetMapping
-    private void getPostsByCategory(@RequestParam String categoryName){
+    private void getCategory(@RequestParam String categoryName){
         User user = new User("Jesse");
     }
 

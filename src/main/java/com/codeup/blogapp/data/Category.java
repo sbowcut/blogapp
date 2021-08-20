@@ -1,9 +1,12 @@
 package com.codeup.blogapp.data;
 
+import java.util.Collection;
+
 public class Category {
 
     private long id;
     private String name;
+    private Collection<Post> posts;
 
     public Category(long id, String name) {
         this.id = id;

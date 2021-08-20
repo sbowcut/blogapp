@@ -1,39 +1,50 @@
 import createView from "../createView.js";
 
-export default function Register(){
-
+export default function Register(props) {
     return `
-    <header>
-    <h1>Registration</h1>
-    </header>
-    <main>
-    <form>
-        <input type="text" placeholder="Username" id="username">
-        <input type="text" placeholder="Email" id="email">
-        <input type="password" placeholder="Password" class="password">
-        <button id="register-btn" type="button">Register</button>
-    </form>
-    </main>
-    
-    `;
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8"/>
+        <title>Register</title>
+    </head>
+    <body>
+        <h1>Register</h1>
+        <form id="login-form">
+            <label for="username">Username</label>
+            <input id="username" name="username" type="text"/>
+            <label for="email">Email</label>
+            <input id="email" name="email" type="text"/>
+            <label for="password">Password</label>
+            <input id="password" name="password" type="password"/>
+            <input id="register-btn" type="button" value="Log In"/>
+        </form>
+    </body>
+</html>`;
 
 }
 
-export function RegisterEvent(){
+export function createRegisterEvent(){
+    RegisterEvent()
+}
 
+function RegisterEvent(){
+    $("#register-btn").click(function (){
 
-    $("#register-btn").click(function () {
+        let newUser ={
+            username: $("#username").val(),
+            email: $("#email").val(),
+            password: $("#password").val(),
+            role: 'USER'
 
-        let post = {
-            username: $('#username').val(),
-            email: $('#email').val(),
-            password: $('.password').val()
         }
+
+        console.log(newUser)
 
         let request = {
             method: "POST",
-            header: {"Content-Type": "application/json"},
-            body: JSON.stringify(post)
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify(newUser)
         };
 
         fetch("http://localhost:8080/api/users", request)
@@ -41,8 +52,5 @@ export function RegisterEvent(){
                 console.log(response.status)
                 createView("/");
             });
-
-
     })
-
 }

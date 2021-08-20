@@ -5,7 +5,9 @@ import Error404 from "./views/Error404.js";
 import Loading from "./views/Loading.js";
 import Login from "./views/Login.js";
 import LoginEvent from "./auth.js";
-import {postListener} from "./views/PostIndex.js";
+import {PostEvents} from "./views/PostIndex.js";
+import {createRegisterEvent} from "./views/Register.js";
+import RegisterEvent from "./views/Register.js";
 
 /**
  * Returns the route object for a specific route based on the given URI
@@ -34,8 +36,9 @@ export default function router(URI) {
             },
             uri: '/posts',
             title: 'All Posts',
-            viewEvent: postListener
+            viewEvent: PostEvents
 
+            //    TODO: add event callback under viewEvent property viewEvent: myEvent
         },
         '/about': {
             returnView: About,
@@ -54,9 +57,18 @@ export default function router(URI) {
             state: {},
             uri: location.pathname,
             title: 'Loading...',
+        },
+
+        '/register': {
+            returnView: RegisterEvent,
+            state: {
+                users: '/api/user'
+            },
+            uri: '/register',
+            title: "Register",
+            viewEvent : createRegisterEvent
         }
     };
 
     return routes[URI];
 }
-
