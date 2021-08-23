@@ -72,14 +72,14 @@ public class UsersController {
         return userRepository.findByEmail(email);
     }
 
-    @PutMapping({"{id}/updatePassword"})
-    private void updatePassword(@PathVariable Long id, @RequestParam(required = false) String oldPassword, @Valid @Size(min = 3) @RequestParam String newPassword){
-        if(!newPassword.equals(oldPassword)){
-            System.out.println("Password for id: " + id + " has been updated!");
-            System.out.println("Old password: " + oldPassword);
-            System.out.println("New password: " + newPassword);
-            userRepository.updatePassword(id);
-        }
-    }
+//    @PutMapping({"{id}/updatePassword"})
+//    private void updatePassword(@PathVariable Long id, @RequestParam(required = false) String oldPassword, @Valid @Size(min = 3) @RequestParam String newPassword){
+//        if(!newPassword.equals(oldPassword)){
+//            System.out.println("Password for id: " + id + " has been updated!");
+//            System.out.println("Old password: " + oldPassword);
+//            System.out.println("New password: " + newPassword);
+//            userRepository.updatePassword(id);
+//        }
+//    }
 }
 

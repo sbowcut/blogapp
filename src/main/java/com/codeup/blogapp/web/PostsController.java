@@ -10,11 +10,11 @@ package com.codeup.blogapp.web;
 
 @RestController
 @RequestMapping(value = "/api/posts", headers = "Accept=application/json")
-class PostController {
+public class PostsController {
 
     private final PostRepository postRepository;
 
-    public PostController(PostRepository postRepository){
+    public PostsController(PostRepository postRepository){
         this.postRepository = postRepository;
     }
 
