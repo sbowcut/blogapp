@@ -68,6 +68,7 @@ export default function router(URI) {
             title: "Register",
             viewEvent : createRegisterEvent
         }
+
     };
 
     return routes[URI];
