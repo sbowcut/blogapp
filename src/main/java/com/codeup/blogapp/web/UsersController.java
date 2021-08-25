@@ -5,6 +5,8 @@ import com.codeup.blogapp.data.user.User;
 import com.codeup.blogapp.data.user.UserRepository;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Size;
 import java.util.List;
 import java.util.Optional;
 
@@ -65,9 +67,9 @@ public class UsersController {
     }
 
     @PostMapping("/findByEmail")
-    private Optional<User> findByEmail(@RequestParam String email){
+    private User findByEmail(@RequestParam String email){
         System.out.println("E-mail: " + email);
-        return userRepository.findByEmail(email);
+        return userRepository.findByEmail(email).get();
     }
 
 //    @PutMapping({"{id}/updatePassword"})
