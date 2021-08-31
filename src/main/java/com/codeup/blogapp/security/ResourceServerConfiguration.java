@@ -43,3 +43,4 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
                 .exceptionHandling().authenticationEntryPoint(customAuthenticationEntryPoint).accessDeniedHandler(new CustomAccessDeniedHandler());
     }
 }
+//please sir may I have a green square
