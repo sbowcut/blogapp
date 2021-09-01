@@ -3,6 +3,8 @@ package com.codeup.blogapp.web;
 import com.codeup.blogapp.EmailService;
 import com.codeup.blogapp.data.post.Post;
 import com.codeup.blogapp.data.post.PostRepository;
+import com.codeup.blogapp.data.user.User;
+import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -34,12 +36,12 @@ public class PostsController {
     }
 
     @PostMapping
-    private void createPost(@RequestBody Post newPost){
-
-        System.out.println(newPost.getTitle());
-        System.out.println(newPost.getContent());
+    private void createPost(@RequestBody Post newPost, OAuth2Authentication auth){
+        String email = auth.getName();
+        User user = userRepository.findByEmail(email).get();
+        newPost.setUser(user);
         postRepository.save(newPost);
-        emailService.prepareAndSend(newPost, "subject: test email", "this is a test email");
+//        emailService.prepareAndSend(newPost, "subject: test email", "this is a test email");
     }
 
     @PutMapping({"/{id}"})
