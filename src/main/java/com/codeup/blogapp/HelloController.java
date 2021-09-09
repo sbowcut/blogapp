@@ -7,28 +7,33 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class HelloController {
-
     @GetMapping("/hello")
+
     @ResponseBody
-    public String hello() {
-        return "Hello, from Spring";
+    public String hello(){
+        return "Hello from Spring!";
     }
+
 
     @GetMapping("/person")
     @ResponseBody
-    public Person getPerson() {
-        return new Person("Sam", "Student");
+    public Person getPerson(){
+        return new Person("Casey", "Bum");
     }
 
+    // {name} in mapping makes the endpoint dynamic when coupled with @PathVariable
     @GetMapping("/hello/{name}")
     @ResponseBody
-    public String sayHello(@PathVariable String name) {
-        return "Hello, " + name + "!";
+    // PathVariable in parameter
+    public String sayHello(@PathVariable String name){
+        return "Hello " + name + "!";
     }
+
 
     @GetMapping("/home")
-    public String welcome() {
-        return "home";
+    public String welcome(){
+        return "home.html";
     }
-
 }
+
+

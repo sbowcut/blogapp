@@ -11,10 +11,10 @@ export default function render(props, route) {
     history.pushState(props, title, route.uri);
     document.title = title;
 
-    // Add to the DOM
-    app.innerHTML = `${Navbar(null)} ${route.returnView(props)} `;
+    // append the specific view to the html
+    app.innerHTML = `${Navbar(null)} ${route.returnView(props)}`;
 
-    // Add event listeners AFTER DOM loaded
+    //if view event is there add it AFTER the view is appended
     if (route.viewEvent){
         route.viewEvent();
     }

@@ -142,9 +142,9 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
      * @param ex the ConstraintViolationException
      * @return the ApiError object
      */
-    @ExceptionHandler(javax.validation.ConstraintViolationException.class)
+    @ExceptionHandler(ConstraintViolationException.class)
     protected ResponseEntity<Object> handleConstraintViolation(
-            javax.validation.ConstraintViolationException ex) {
+            ConstraintViolationException ex) {
         ApiError apiError = new ApiError(BAD_REQUEST);
         apiError.setMessage("Validation error");
         apiError.addValidationErrors(ex.getConstraintViolations());

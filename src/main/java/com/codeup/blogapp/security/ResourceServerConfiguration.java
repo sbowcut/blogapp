@@ -31,16 +31,16 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
                 .disable()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
+            .and()
                 .authorizeRequests()
+                .antMatchers("/api/posts").hasAnyAuthority("ADMIN", "USER")
                 .antMatchers("/api/users").hasAnyAuthority("ADMIN", "USER")
-                .antMatchers("/api/posts/**").hasAnyAuthority("ADMIN", "USER")
-                .antMatchers("/api/**").authenticated()
-                .antMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
+                .antMatchers(  "/swagger-ui/**", "/v3/api-docs/**").permitAll()
+                .antMatchers(  "/api/users/create").permitAll()
                 .antMatchers("/**").permitAll()
                 .anyRequest().authenticated()
-                .and()
+            .and()
                 .exceptionHandling().authenticationEntryPoint(customAuthenticationEntryPoint).accessDeniedHandler(new CustomAccessDeniedHandler());
     }
+
 }
-//please sir may I have a green square

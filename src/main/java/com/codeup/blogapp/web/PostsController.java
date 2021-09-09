@@ -1,62 +1,67 @@
 package com.codeup.blogapp.web;
 
-import com.codeup.blogapp.EmailService;
+import com.codeup.blogapp.data.category.Category;
 import com.codeup.blogapp.data.post.Post;
-import com.codeup.blogapp.data.post.PostRepository;
+import com.codeup.blogapp.data.post.PostsRepository;
+import com.codeup.blogapp.data.services.EmailService;
 import com.codeup.blogapp.data.user.User;
-import org.springframework.security.oauth2.provider.OAuth2Authentication;
+import com.codeup.blogapp.data.user.UserRepository;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.oauth2.provider.*;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
-@RequestMapping(value = "/api/posts", headers = "Accept=application/json", produces = "application/json")
+@RequestMapping(value = "/api/posts", headers = "Accept=application/json")
 public class PostsController {
 
 
-    private final PostRepository postRepository;
-
+    private final PostsRepository postsRepository;
     private final EmailService emailService;
+    private final UserRepository userRepository;
 
-    public PostsController(PostRepository postrepository, EmailService emailService){
 
-        this.postRepository = postrepository;
-        this.emailService = emailService;
-
+     public PostsController(PostsRepository postsRepository, EmailService emailService, UserRepository userRepository) {
+                this.postsRepository = postsRepository;
+                this.emailService = emailService;
+                this.userRepository = userRepository;
     }
 
-    @GetMapping
-    private List<Post> getPosts(){
-        return postRepository.findAll();
+    // depending on HTTP METHOD GET POST PUT DELETE on endpoint /api/posts -> the method with that annotation fires
+    @GetMapping()
+    @PreAuthorize("!hasAuthority('USER')")
+    private List<Post> getPosts() {
+
+        return postsRepository.findAll();
     }
 
     @GetMapping("{id}")
-    private Post getPostById(@PathVariable Long id){
-        return postRepository.findById(id).get();
+    private Post getPostById(@PathVariable Long id) {
+         return postsRepository.findById(id).get();
     }
+
 
     @PostMapping
-    private void createPost(@RequestBody Post newPost, OAuth2Authentication auth){
-        String email = auth.getName();
-        User user = userRepository.findByEmail(email).get();
-        newPost.setUser(user);
-        postRepository.save(newPost);
-//        emailService.prepareAndSend(newPost, "subject: test email", "this is a test email");
+    private void createPosts(@RequestBody Post newPost, OAuth2Authentication auth) {
+         String email = auth.getName();
+         User user = userRepository.findByEmail(email).get();
+         newPost.setUser(user);
+        postsRepository.save(newPost);
+        emailService.prepareAndSend(newPost, "Test Subject", "Test Body");
     }
 
-    @PutMapping({"/{id}"})
-    private void updatePost(@PathVariable Long id, @RequestBody Post postToUpdate){
 
-        System.out.println(postToUpdate.getTitle());
-        System.out.println(postToUpdate.getContent());
-        postRepository.save(postToUpdate);
+    @PutMapping()
+    private void updatePost( @RequestBody Post post) {
+        postsRepository.save(post);
     }
 
-    @DeleteMapping({"{id}"})
-    private void deletePost(@PathVariable Long id){
-        System.out.println("The id deleted was: " + id);
-        postRepository.deleteById(id);
+    @DeleteMapping("/{id}")
+    private void deletePost(@PathVariable Long id) {
+        postsRepository.deleteById(id);
     }
 
-//fixing stuff
 }

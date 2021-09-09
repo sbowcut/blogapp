@@ -4,11 +4,11 @@ import About from "./views/About.js";
 import Error404 from "./views/Error404.js";
 import Loading from "./views/Loading.js";
 import Login from "./views/Login.js";
+import Register from "./views/Register.js"
 import LoginEvent from "./auth.js";
-import {PostEvents} from "./views/PostIndex.js";
-import {createRegisterEvent} from "./views/Register.js";
-import RegisterEvent from "./views/Register.js";
-
+import {loadEvents} from "./views/PostIndex.js";
+import {LoadRegisterEvents} from "./views/Register.js"
+import Users, {loadUserEvents} from "./views/users.js"
 /**
  * Returns the route object for a specific route based on the given URI
  * @param URI
@@ -29,16 +29,34 @@ export default function router(URI) {
             title: "Login",
             viewEvent: LoginEvent
         },
+        '/users':{
+          returnView: Users,
+            state: {
+              users: '/api/users'
+            },
+            uri: '/users',
+            title: 'Users',
+            viewEvent: loadUserEvents
+        },
+        '/register': {
+            returnView: Register,
+            state: {
+                users: '/api/users'
+            },
+            uri: '/register',
+            title: 'Register',
+            viewEvent: LoadRegisterEvents
+        },
         '/posts': {
             returnView: PostIndex,
             state: {
-                posts: '/api/posts'
+                posts: '/api/posts',
+                users: '/api/users',
+                categories: '/api/categories'
             },
             uri: '/posts',
             title: 'All Posts',
-            viewEvent: PostEvents
-
-            //    TODO: add event callback under viewEvent property viewEvent: myEvent
+            viewEvent: loadEvents
         },
         '/about': {
             returnView: About,
@@ -57,19 +75,10 @@ export default function router(URI) {
             state: {},
             uri: location.pathname,
             title: 'Loading...',
-        },
-
-        '/register': {
-            returnView: RegisterEvent,
-            state: {
-                users: '/api/user'
-            },
-            uri: '/register',
-            title: "Register",
-            viewEvent : createRegisterEvent
         }
 
     };
 
     return routes[URI];
 }
+
